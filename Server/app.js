@@ -1,6 +1,13 @@
 const express = require("express")
+const dotenv = require("dotenv");
+
+require("./db/conn");
 
 const app = express();
+
+dotenv.config({path: './config.env'});
+
+// const PATH = process.env.PATH;
 
 const middleware = (req, res, next) => {
     console.log("You are logged out!");
@@ -32,5 +39,5 @@ app.get('/logout', middleware, (req, res) => {
 })
 
 app.listen(3000, () => {
-    console.log("App running at port 3000...");
+    console.log(`App running at port ${3000}...`);
 });

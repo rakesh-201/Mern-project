@@ -1,0 +1,1 @@
+srv://rbrajpurohit:rbrajpurohit@cluster0.gkdwi.mongodb.net/mern-project?retryWrites=true&w=majoritymongodb+
