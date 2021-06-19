@@ -36,7 +36,7 @@ router.post("/register", async (req, res) => {
 
 router.post("/signin", async (req, res) => {
   const { email, password } = req.body;
-
+  let token;
   if (!email || !password) res.status(400).json("Please fill all the fields.");
 
   try {
@@ -46,6 +46,14 @@ router.post("/signin", async (req, res) => {
       res.status(400).json("Please enter proper credentials.");
     } else {
       if (await bcrypt.compare(password, user.password)) {
+        token = await user.getAuthToken();
+        console.log(token);
+
+        res.cookie("jwtoken", token, {
+          expires: new Date(Date.now() + 2592000000),
+          httpOnly: true,
+        });
+
         res.status(200).json("You are logged in!");
       } else {
         res.status(400).json({ error: "Please enter proper credentials." });
